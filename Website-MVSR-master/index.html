@@ -1,0 +1,1599 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- all css here -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/default-css.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <!-- all scripts -->
+    <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script>
+    <style>
+       
+
+/* Make the parent container background transparent */
+        .numbered-cards {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+                justify-content: center;
+                padding: 20px;
+                background: transparent; /* Transparent background for the container */
+            }
+
+            .flip-card {
+                perspective: 1000px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 350px;
+                width: 100%;
+            }
+
+            .flip-card-inner {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                transition: transform 0.8s ease;
+                transform-style: preserve-3d;
+            }
+
+            .flip-card:hover .flip-card-inner {
+                transform: rotateY(180deg);
+            }
+
+            .flip-card-front, .flip-card-back {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                backface-visibility: hidden;
+                border-radius: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 10px;
+                background: transparent; /* Keep the background of the flip card itself transparent */
+            }
+
+            .flip-card-front {
+                color: #333;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
+            }
+
+            .flip-card-back {
+                color: #ffffff;
+                transform: rotateY(180deg);
+                background: rgba(0, 0, 0, 0.2); /* Semi-transparent background on flip side */
+            }
+
+            /* Different background colors for each card's flip card-back */
+            .flip-card:nth-child(1) .flip-card-back {
+                background: rgba(255, 218, 154, 0.719); /* Light beige with transparency */
+            }
+
+            .flip-card:nth-child(2) .flip-card-back {
+                background: rgba(187, 238, 255, 0.6); /* Light blue with transparency */
+            }
+
+            .flip-card:nth-child(3) .flip-card-back {
+                background: rgba(152, 251, 152, 0.6); /* Light green with transparency */
+            }
+
+            .flip-card:nth-child(4) .flip-card-back {
+                background: rgba(255, 182, 193, 0.6); /* Light pink with transparency */
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Add background color to the body */
+body {
+    background: #f0f0f0; /* Example background color */
+}
+
+
+/* Responsive Design */
+    @media (max-width: 768px) {
+        .header {
+            flex-direction: column;
+            text-align: center;
+            gap: 15px;
+        }
+
+        .main-content {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            grid-template-columns: 1fr;
+        }
+
+        .numbered-cards {
+            grid-template-columns: 1fr;
+        }
+    }
+
+
+
+        .commn-carousel {
+          overflow: hidden; /* Prevents scrolling */
+          display: flex; /* Use flexbox to arrange children */
+          flex-wrap: nowrap; /* Prevent wrapping to new lines */
+        }
+        
+        .card {
+          flex: 0 0 auto; /* Prevent cards from shrinking or growing */
+        }
+        
+
+
+
+
+
+
+
+        /* feed back form */
+
+    .show-feedback-btn {
+            position: fixed;
+            top: 50%; /* Center the button vertically */
+            right: -40px; /* Keep it 20px from the right side */
+            transform: translateY(-50%) rotate(90deg); /* Center it vertically and rotate it */
+            width: 100px; /* Fixed width for vertical appearance */
+            height: 30px; /* Fixed height for a vertical button */
+            background-color: #007BFF;
+            color: #fff;
+            border: none; /* Removed border */
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 10000; /* Ensure button is above all elements */
+        }
+
+        .show-feedback-btn:hover {
+            background-color: #000; /* Darker blue on hover */
+            transition: background-color 0.3s; /* Smooth hover transition */
+        }
+
+        .feedback-form {
+            position: fixed;
+            top: 20px;
+            right: -300px; /* Initially hidden off-screen */
+            width: 300px;
+            height: 500px; /* Set height to accommodate the iframe */
+            padding: 0;
+            background-color: white; /* Background color to distinguish */
+            transition: right 0.5s ease; /* Smooth transition for sliding */
+            z-index: 9999; /* Ensure it is above other elements */
+            overflow: hidden; /* Hide overflow for aesthetics */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+            border-radius: 10px; /* Rounded corners */
+        }
+
+        .feedback-block {
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* Fill feedback form */
+        }
+
+        /* Styles for the iframe */
+        .google-form {
+            flex-grow: 1; /* Allows iframe to take up available space */
+            border: none; /* No border on iframe */
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: hidden; /* Hide any overflow */
+        }
+        .full-text {
+            display: none; /* Initially hide full text */
+        }
+        .full-text.show {
+            display: block; /* Show full text when class is active */
+        }
+        .short-text.hide {
+            display: none; /* Hide short text when class is active */
+        }
+
+
+
+
+
+
+
+        /* header */
+    body {
+            font-family: 'Arvo', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #f8f9fa; /* You can change it to your desired background color */
+            padding: 10px;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo img {
+            max-height: 120px; /* Adjust logo size */
+        }
+
+        .primary-navigation {
+            display: flex;
+            flex-direction: column; /* Arrange links in two columns */
+        }
+
+        .primary-navigation ul {
+            list-style: none;
+            padding-right: 20px;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap; /* Allow items to wrap to the next line */
+        }
+
+        .primary-navigation li {
+            margin: 5px 15px; /* Space between menu items */
+        }
+
+        .primary-navigation a {
+            text-decoration: none;
+            color: #333; /* Default link color */
+            padding: 10px 15px; /* Padding around links */
+            transition: color 0.3s; /* Smooth color transition */
+        }
+
+        .primary-navigation a:hover {
+            color: #007bff; /* Change color on hover */
+        }
+
+        .primary-navigation .dropdown {
+            display: none; /* Hide dropdowns initially */
+            position: absolute; /* Position dropdowns */
+            background-color: white; /* Background of dropdown */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for dropdown */
+            padding: 10px;
+        }
+
+        .primary-navigation li:hover .dropdown {
+            display: block; /* Show dropdown on hover */
+        }
+
+        .dropdown li {
+            margin: 0; /* No margin for dropdown items */
+        }
+
+        .primary-navigation ul {
+            display: flex;
+            justify-content: flex-start; /* Ensure buttons stay aligned */
+            transform: translateX(-90px); /* Move all buttons 20px to the left */
+        }
+
+        .course-area {
+            background: linear-gradient(180deg, #000101, #252525); /* Blue to coral gradient */
+            padding: 30px 0; /* Ensure padding is consistent */
+        }
+
+        
+
+
+
+
+
+/* Flip card 2 styling */
+        .flip-card {
+            background-color: transparent;
+            width: 250px;
+            height: 350px;
+            perspective: 1000px;
+        }
+        
+        /* Flip card inner */
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+        
+        /* Front of the card */
+        .flip-card-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        
+        /* Back of the card */
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background-color: #f1f1f1;
+            border-radius: 8px;
+            padding: 20px;
+            transform: rotateY(180deg);
+        }
+        
+        /* Flip card hover effect */
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .logo-img {
+                width: 160px; /* Adjusted uniform width */
+                height: 120px; /* Adjusted uniform height */
+                border: 0px solid #ccc; /* Default border (box) around images) */
+                border-radius: 8px; /* Rounded corners for better aesthetics */
+                transition: transform 0.1s ease-in-out, box-shadow 0.3s ease-in-out;
+            }
+        
+            .hover-effect:hover {
+                transform: translateY(-10px); /* Lifts on hover */
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Shadow on hover */
+            }
+        
+            img {
+                vertical-align: middle;
+                border-style: none;
+            }
+        
+            .grey-line {
+                border-top: 1px solid grey;
+                width: 90%;
+                margin: auto;
+                z-index: 1;
+                top: -10px;
+            }
+        
+            .row {
+                position: relative;
+            }
+        
+            hr {
+                border-top: 1px solid grey; /* Adjust thickness (3px) and color (#000 for black) */
+                margin: 20px 0; /* Optional: Adjust spacing around the line */
+            }
+        
+            .swiper-container {
+            overflow: hidden;
+        }
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 150px; /* Adjust height as needed */
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        #header-container {
+            font-family: Arial, sans-serif;
+            width: 100%; /* Extend the header to the full width */
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 45vh; /* Ensure the header takes full height of the screen */
+        }
+        
+        .new-button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10px;
+            width: 100%; /* Ensure the button container takes full width */
+            height: auto;
+        }
+        
+        .new-button-row {
+            display: flex;
+            justify-content: space-evenly; /* Equal spacing between buttons */
+            width: 100%; /* Full width */
+            margin-bottom: 30px;
+        }
+        
+        .new-button {
+            flex: 0.5; /* Make all buttons equally sized */
+            padding: 10px 20px; /* Reduced padding for smaller height */
+            border: 1px solid #4f4f4f;
+            border-radius: 4px; /* Rounded corners */
+            transition: all 0.1s ease-in;
+            position: relative;
+            overflow: hidden;
+            font-size: 14px; /* Smaller font size for more compact button */
+            cursor: pointer;
+            color: black;
+            z-index: 1;
+            margin: 0 20px; /* Small space between buttons */
+        }
+        
+        .new-button:before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%) scaleY(1) scaleX(1.25);
+            top: 100%;
+            width: 140%;
+            height: 180%;
+            background-color: rgba(0, 0, 0, 0.05);
+            border-radius: 50%;
+            display: block;
+            transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+            z-index: -1;
+        }
+        
+        .new-button:after {
+            content: "";
+            position: absolute;
+            left: 55%;
+            transform: translateX(-50%) scaleY(1) scaleX(1.45);
+            top: 180%;
+            width: 160%;
+            height: 190%;
+            background-color: #fc9928;
+            border-radius: 50%;
+            display: block;
+            transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+            z-index: -1;
+        }
+        
+        .new-button:hover {
+            color: #ffffff;
+            border: 1px solid #fc9928;
+            transform: translateY(-10px); /* Move the button up */
+        }
+        
+        .new-button:hover:before {
+            top: -35%;
+            background-color: #fc9928;
+            transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+        }
+        
+        .new-button:hover:after {
+            top: -45%;
+            background-color: #fc9928;
+            transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+        }
+        
+        
+        
+        .media:hover {
+            background-color: rgba(255, 255, 255, 0.404);
+            transition: background-color 0.3s ease; /* Smooth transition */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow for better visibility */
+            border-radius: 5px; /* Optional: Rounds the corners */
+        }
+        
+        
+        
+
+    </style>
+</head>
+<body>
+
+
+    <script>
+        if (/Mobi|Android/i.test(navigator.userAgent)) {
+            window.location.href = "desktop-version-url";
+        }
+    </script>
+
+</head>
+
+
+
+
+<body>
+    <!-- Button to Show Feedback Form -->
+    <button class="show-feedback-btn" id="show-feedback">Feedback</button>
+
+    <!-- Feedback Form (Google Form) -->
+    <div class="feedback-form" id="feedback-form">
+        <div class="feedback-block">
+            <!-- Embed Google Form -->
+            <iframe class="google-form" src="https://docs.google.com/forms/d/e/1FAIpQLScSK9Vz2YPkGLN8j9c0fkKugSSuHDkZo5zEuHMsd-k7aX2lqQ/viewform?embedded=true" frameborder="0">Loading…</iframe>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for toggling the feedback form visibility
+        document.getElementById('show-feedback').addEventListener('click', function() {
+            const feedbackForm = document.getElementById('feedback-form');
+            if (feedbackForm.style.right === '0px') {
+                feedbackForm.style.right = '-300px'; // Move out of view
+            } else {
+                feedbackForm.style.right = '0px'; // Move into view
+                feedbackForm.style.visibility = 'visible'; // Make it visible
+            }
+        });
+    </script>
+
+
+
+
+
+
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+    <!-- preloader area start -->
+    <div id="preloader">
+        <div class="loader"></div>
+    </div>
+    <!-- prealoader area end -->
+
+
+
+
+
+     <!-- Updated Header --> 
+     <header id="header">
+        <div class="header-container">
+            <div class="logo">
+                <a href="/"><img src="assets/images/icon/MVSR_bg.png" alt="logo"></a>
+            </div>
+            <nav role="navigation" class="primary-navigation">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About Us</a>
+                    <li><a href="#">Management</a></li>
+                    <li><a href="#">Academics</a></li>
+                    <li><a href="#">Placements</a></li>
+                    <li><a href="#">Departments</a></li>
+                    <li><a href="#">R & D</a></li>
+                    <li><a href="#">IIC & EDC</a></li>
+                </ul>
+                <ul>
+                    <li><a href="#">Alumni</a></li>
+                    <li><a href="#">NIRF</a></li>
+                    <li><a href="#">Admissions</a></li>
+                    <li><a href="#">IQAC</a></li>
+                    <li><a href="#">Exam Branch</a></li>
+                    <li><a href="#">Student</a></li>
+                    <li><a href="#">Pay Tuition Fees Online</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <style>
+        #header {
+            background: #ffffffde ;
+        }
+        #header a {
+            font-weight: bold;
+        }
+        #header .primary-navigation a {
+            padding-left: 0px;
+        }
+
+    </style>
+    
+
+
+    <!-- offset search area start -->
+    <div class="offset-search">
+        <form action="#">
+            <input type="text" name="search" placeholder="Sarch here...">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+    <!-- offset search area end -->
+
+
+
+
+    <!-- body overlay area start -->
+    <div class="body_overlay"></div>
+    <!-- body overlay area end -->
+    <!-- hero area start -->
+    <div class="hero-area has-color">
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
+                    <div class="hero-content">
+                        <h3>MVSR</h3>
+                        <h1 class="mb-5"><span class="primary-color">MATURI VENKATA SUBBA RAO</span><b class="line-break"></b>ENGINEERING COLLEGE</h1>
+                        <p class="text-white-50">Find Your Preferred Courses & Improve Your Skills</p>
+                        <form action="#">
+                            <div class="form-input mt-5">
+                                <input type="text" name="search" required placeholder="Enter your keyword...">
+                                <button class="btn btn-primary btn-round" type="submit">Seacrh</button>
+                                <i class="fa fa-search"></i>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- hero area end -->
+
+
+
+
+
+
+
+
+
+
+    <!-- course area start -->
+<div class="course-area ptb--30">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="section-title-style2 white-title title-tb text-center">
+                    <span>build your career</span>
+                    <h2 class="primary-color">Featured</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="commn-carousel owl-carousel card-deck">
+            <div class="card mb-5">
+                <div class="course-thumb">
+                    <!-- <span class="cs-price primary-bg">$150</span> -->
+                </div>
+                <div class="card-body p-25">
+                    <div class="course-meta-title mb-4">
+                        <div class="course-meta-text">
+                            <h4><a href="course-details.html">NEWS</a></h4>
+                            <ul class="course-meta-stats">
+                                <li><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i><i class="fa fa-star-half"></i></li>
+                                
+                            </ul>
+                        </div>
+                        <a href="course-details.html"><img class="course-meta-thumbnail rounded-circle"> </a>
+                    </div>
+                    <div class="course-description">
+                        <p class="short-text">
+                            Skill Development Scholarship for top 10 rankers of Mvsr Engineering College
+                            MVSREC stands 5th in the State as per July 2021 Times Engineering Rankings 2021
+                            Sewing Machine Project Executed by the members of Street Cause MVSREC - Telecasted on I News
+                        </p>
+                        <p class="full-text">
+                            Skill Development Scholarship for top 10 rankers of Mvsr Engineering College
+                            MVSREC stands 5th in the State as per July 2021 Times Engineering Rankings 2021
+                            Sewing Machine Project Executed by the members of Street Cause MVSREC - Telecasted on I News TV Channel
+                            Operating Manuals for Students & Institutions - AICTE Pragati and Saksham Schemes - Click Here
+                            MHRD - SWAYAM & ICT Initiatives for FREE ONLINE digital course content available for Students / Faculty - Click to Visit
+                        </p>
+                
+                        <a class="btn btn-primary btn-round btn-sm read-more" href="#">Read More</a>
+                    </div>
+                
+                    <script>
+                        document.querySelectorAll('.read-more').forEach(button => {
+                            button.addEventListener('click', function (e) {
+                                e.preventDefault(); // Prevent default anchor behavior
+                                const courseDescription = button.closest('.course-description');
+                                const shortText = courseDescription.querySelector('.short-text');
+                                const fullText = courseDescription.querySelector('.full-text');
+                
+                                // Toggle classes for visibility
+                                if (fullText.classList.contains('active')) {
+                                    fullText.classList.remove('active');
+                                    shortText.classList.remove('hidden');
+                                    button.textContent = 'Read less';
+                                } else {
+                                    fullText.classList.add('active');
+                                    shortText.classList.add('hidden');
+                                    button.textContent = 'Read more';
+                                }
+                            });
+                        });
+                    </script>                  
+                    <ul class="course-meta-details list-inline w-100">
+                    </ul>
+                </div><!-- card-body -->
+            </div><!-- card -->
+
+            <div class="card mb-5">
+                <div class="course-thumb">
+                    <!-- <span class="cs-price primary-bg">$100</span> -->
+                </div>
+                <div class="card-body p-25">
+                    <div class="course-meta-title mb-4">
+                        <div class="course-meta-text">
+                            <h4><a href="course-details.html">AWARDS</a></h4>
+                            <ul class="course-meta-stats">
+                                <li><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i><i class="fa fa-star-half"></i></li>
+                                
+                            </ul>
+                        </div>
+                        <a href="course-details.html"><img class="course-meta-thumbnail rounded-circle"> </a>
+                    </div>
+                    <div class="course-description">
+                        <p class="short-text">
+                            MVSREC won 8 awards in 5 categories of CSI-HYDERABAD Chapter Excellence Awards 2023
+
+                            MVSR Team K.Abhishek(CSE) & K.Karthikeya(CSE) mentored by Dr.Akhil Khare(Prof. in CSE) was awarded in the Top-10 among 490
+
+                        </p>
+                        <p class="full-text" style="display: none;">
+                            MVSREC won 8 awards in 5 categories of CSI-HYDERABAD Chapter Excellence Awards 2023
+
+                            MVSR Team K.Abhishek(CSE) & K.Karthikeya(CSE) mentored by Dr.Akhil Khare(Prof. in CSE) was awarded in the Top-10 among 490 teams shortlisted all over India during the IIT-Bombay’s e-Yantra Innovation Challenge 2023 in IOT & Robotics on 5th & 6th April 2023 at IIT-Bombay.
+
+                            MVSREC Team ELITEEE winners of Smart India Hackathon 2022 @ KPRIET, Coimbatore Nodal Centre (PSID-V930)
+
+                            Dr. D. Sirisha, Asst. Prof., CSED, MVSREC Winner Dare to Dream Innovation Contest 2.0 Felicitated by the Hon. Defence Minister Shri Rajnath Singh
+
+                            IEEE-MVSR bags 3 awards in 2020 presented by IEEE hyderabad Chapter
+
+                            CSI-MVSR Student Branch Bags 8 Prestigious National Awards
+
+                            AIR 10th Rank in SAE BAJA-2019
+
+                            SAE (Society of Automotive Engineers) Efficycle-2018 Awards
+
+                            IEEE - Best Out Reach Award
+
+                            11th SAE-Convention Awards
+                            </p>
+
+                            <a class="btn btn-primary btn-round btn-sm read-more" href="#">Read More</a>
+                    </div>
+                    <ul class="course-meta-details list-inline w-100">
+                    </ul>
+                </div><!-- card-body -->
+            </div><!-- card -->
+
+            <div class="card mb-5">
+                <div class="course-thumb">
+                    <!-- <span class="cs-price primary-bg">$200</span> -->
+                </div>
+                <div class="card-body p-25">
+                    <div class="course-meta-title mb-4">
+                        <div class="course-meta-text">
+                            <h4><a href="course-details.html">EVENTS</a></h4>
+                            <ul class="course-meta-stats">
+                                <li><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i><i class="fa fa-star-half"></i></li>
+                                
+                            </ul>
+                        </div>
+                        <a href="course-details.html"><img class="course-meta-thumbnail rounded-circle"> </a>
+                    </div>
+                    <div class="course-description">
+                        <p class="short-text">
+                            FDP on “LEARNING PARADIGMS IN MACHINE LEARNING & DEEP LEARNING WITH PYTHON”
+                            20 JUNE ‘24 - 30 JUNE ’24
+                            Organized by
+                            Dept of CSE, MVSREC
+                            In association with
+                            Electronics & ICT Academy, NIT Warangal
+                            (Sponsored by MEITy, GoI)
+
+                        </p>
+                        <p class="full-text" style="display: none;">
+                            FDP on “LEARNING PARADIGMS IN MACHINE LEARNING & DEEP LEARNING WITH PYTHON”
+                            20 JUNE ‘24 - 30 JUNE ’24
+                            Organized by
+                            Dept of CSE, MVSREC
+                            In association with
+                            Electronics & ICT Academy, NIT Warangal
+                            (Sponsored by MEITy, GoI)
+
+                            - - RASEFT-2024 - -
+                            A Conference on Recent Advances In Sustainable Engineering and Future Technologies
+                            27th to 29th December 2024
+
+                        </p>
+
+                        <a class="btn btn-primary btn-round btn-sm read-more" href="#">Read More</a>
+                    </div>
+                    <ul class="course-meta-details list-inline w-100">
+                    </ul>
+                </div><!-- card-body -->
+            </div><!-- card -->
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.querySelectorAll('.read-more').forEach(button => {
+        button.addEventListener('click', function() {
+            const courseDescription = button.closest('.course-description');
+            const shortText = courseDescription.querySelector('.short-text');
+            const fullText = courseDescription.querySelector('.full-text');
+
+            // Toggle visibility
+            if (fullText.style.display === 'none') {
+                fullText.style.display = 'block';
+                shortText.style.display = 'none';
+                button.textContent = 'Read Less'; // Change button text
+            } else {
+                fullText.style.display = 'none';
+                shortText.style.display = 'block';
+                button.textContent = 'Read More'; // Change button text back
+            }
+        });
+    });
+</script>
+<!-- course area end -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- take tour area start -->
+<div class="take-toure-area" style="background-image: url('assets/images/walkway.jpg'); background-size: cover; background-position: center; padding-top: 40px; padding-bottom: 0px;">
+    <div class="container" style="padding-left: 5px;">
+        <div class="row">
+            <!-- Left Section: Text -->
+            <div class="col-md-8" style="margin-left: -5%;">
+                <div class="section-title-style2 white-title text-center" style="max-width: 600px; line-height: 1.6;">
+                    <span style="color: #000000;">Take A Look</span>
+                    <h2 style="color: #000000;">COLLEGE PROFILE</h2>
+                    <p style="color: #000000;">
+                        Maturi Venkata Subba Rao (MVSR) Engineering College was established in 1981 with affiliation to Osmania University. Currently, the college has B.E programs in Civil, CSE, ECE, EEE, IT, Mechanical, and Automobile Engineering, PG programs in CSE, ECE, and Mechanical besides MBA.
+                    </p>
+                    <p style="color: #000000;">
+                        This college has been recognized by Osmania University as a Centre for pursuing research leading to the award of Ph.D. Degree in the Disciplines of CSE, ECE, and Mechanical Engineering. About 1000 students take admission each year.
+                    </p>
+                    <h3 style="color: #000000;">Our Vision</h3>
+                    <p style="color: #000000;">
+                        To impart technical education of the highest standards, producing technically competent, confident, and socially responsible engineers.
+                    </p>
+                    <h3 style="color: #000000;">Our Mission</h3>
+                    <p style="color: #000000;">
+                        To impart adequate fundamental knowledge, technical and soft skills to students. <br>
+                        To make the learning process exciting, stimulating, and joyful. <br>
+                        To create a climate conducive to an excellent teaching-learning process. <br>
+                        To bring out creativity in students. <br>
+                        To contribute to the advancement of engineering & technology. <br>
+                        To make a positive contribution to meet societal needs.
+                    </p>
+                </div>
+            </div>
+            <!-- Right Section: First Slideshow -->
+            <div class="col-md-4">
+                <div class="swiper-container" style="width: 100%; height: 500px; margin-bottom: 20px;"> <!-- Added margin for spacing -->
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><img src="assets/images/slideshow/image.png" alt="Image 1" style="width: 100%; height: auto;"></div>
+                        <div class="swiper-slide"><img src="assets/images/slideshow/image1.png" alt="Image 2" style="width: 100%; height: auto;"></div>
+                        <div class="swiper-slide"><img src="assets/images/slideshow/image2.png" alt="Image 3" style="width: 100%; height: auto;"></div>
+                        <div class="swiper-slide"><img src="assets/images/slideshow/image3.png" alt="Image 4" style="width: 100%; height: auto;"></div>
+                        <div class="swiper-slide"><img src="assets/images/slideshow/image4.png" alt="Image 5" style="width: 100%; height: auto;"></div>
+                    </div>
+                </div>
+                <!-- Second Slideshow Below the First -->
+                <div class="swiper-container" style="width: 100%; height: 300px;"> <!-- Adjust height as needed -->
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><img src="assets/images/slideshow/image4.png" alt="Image 6" style="width: 100%; height: auto;"></div>
+                        <div class="swiper-slide"><img src="assets/images/slideshow/image3.png" alt="Image 7" style="width: 100%; height: auto;"></div>
+                        <div class="swiper-slide"><img src="assets/images/slideshow/image2.png" alt="Image 8" style="width: 100%; height: auto;"></div>
+                        <div class="swiper-slide"><img src="assets/images/slideshow/image1.png" alt="Image 9" style="width: 100%; height: auto;"></div>
+                        <div class="swiper-slide"><img src="assets/images/slideshow/image.png" alt="Image 10" style="width: 100%; height: auto;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Add Swiper JS and CSS -->
+
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+<script>
+    // Create a new Swiper instance for the first slideshow
+    var swiper1 = new Swiper('.swiper-container:nth-of-type(1)', {
+        direction: 'vertical', // Set direction to vertical
+        slidesPerView: 1, // Display one image at a time
+        loop: true, // Enable loop
+        autoplay: {
+            delay: 3000, // Delay between slides
+            disableOnInteraction: false,
+        },
+    });
+
+    // Create a new Swiper instance for the second slideshow
+    var swiper2 = new Swiper('.swiper-container:nth-of-type(2)', {
+        direction: 'vertical', // Set direction to vertical
+        slidesPerView: 1, // Display one image at a time
+        loop: true, // Enable loop
+        autoplay: {
+            delay: 3000, // Delay between slides
+            disableOnInteraction: false,
+        },
+    });
+</script>
+<style>
+    /* Style for Swiper slides (images) */
+    .swiper-slide img {
+        width: 100%; /* Full width */
+        height: 100%; /* Ensure images fill the container */
+        object-fit: cover; /* Maintain aspect ratio and cover the container */
+        border-radius: 15px; /* Rounded corners */
+        padding: 5px; /* Padding around images */
+    }
+
+    /* First Swiper container customization */
+    .swiper-container:nth-of-type(1) {
+        width: 1600px; /* Increased width */
+        height: 900px; /* Increased height */
+        margin-top: 100px; /* Keep the same top margin */
+        margin-left: auto; /* Center horizontally */
+        margin-right: auto; /* Center horizontally */
+    }
+
+    /* Second Swiper container customization */
+    .swiper-container:nth-of-type(2) {
+        width: 1600px; /* Increased width */
+        height: 900px; /* Increased height */
+        margin-top: -200px; /* Keep reduced spacing between slideshows */
+        margin-left: auto; /* Center horizontally */
+        margin-right: auto; /* Center horizontally */
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1600px) {
+        .swiper-container:nth-of-type(1),
+        .swiper-container:nth-of-type(2) {
+            width: 100%; /* Make them responsive on smaller screens */
+            height: auto; /* Adjust height according to aspect ratio */
+        }
+    }
+
+    .section-title-style2.white-title.text-center {
+        transition: background-color 0.3s ease, border-radius 0.3s ease; /* Smooth transition */
+        border-radius: 10px; /* Initial curvy border */
+        padding: 15px; /* Add some padding for better effect */
+    }
+    
+    .take-toure-area .section-title-style2.white-title.text-center {
+        background-color: rgba(255, 255, 255, 0.7); /* Default background color */
+        border-radius: 10px; /* Curvy borders */
+        padding: 15px; /* Add padding for better spacing */
+        transition: background-color 0.3s ease, border-radius 0.3s ease; /* Smooth transition */
+    }
+
+</style>
+
+<!-- take tour area end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- events area start -->
+<div class="event-area pt--120 pb--80" style="position: relative;">
+    <div class="background-image" style="
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('assets/images/ourevents1.jpg');
+        background-size: cover;
+        background-position: center;
+        opacity: 1.5; /* Adjust opacity here */
+        z-index: -1;
+    "></div>
+    <div class="container">
+        <!-- Additional Cards -->
+        <div class="video-area" style="text-align: center;">
+            <iframe 
+                src="https://www.youtube.com/embed/nhDXfmp_DwU" 
+                width="1280" 
+                height="720" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
+        
+        
+    <section class="numbered-cards">
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <div class="image-container">
+                        <img src="assets/images/nptellg.png" alt="NPTEL" style="width: 200px; height: auto;">  
+                    </div>
+                    <h3 class="title">NPTEL</h3>
+                    <!-- <p>Enhance engineering</p> -->
+                </div>
+                <div class="flip-card-back">
+                    <h3 class="title">NPTEL</h3>
+                    <p class="font-in">The main objective of NPTEL is to improve the quality of engineering and science education in India by creating video and web-based content for undergraduate and postgraduate curricula.</p>
+                    <a href="#">View Statistics</a> <a href="#">Read more</a>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <div class="image-container">
+                        <img src="assets/images/images-removebg-preview.png" alt="IIT">
+                    </div>
+                    <h3 class="title">IIT</h3>
+                    <!-- <p>Spoken Tutorial</p> -->
+                </div>
+                <div class="flip-card-back">
+                    <h3 class="title">IIT Spoken Tutorial</h3>
+                    <p class="font-in">The Spoken Tutorial project, part of the 'Talk to a Teacher' initiative, is under the National Mission on Education through ICT by the Ministry of HRD.</p>
+                    <a href="#">View Statistics</a> <a href="#">Read more</a>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <div class="image-container">
+                        <img src="assets/images/images (28).jpeg" alt="IIC">
+                    </div>
+                    <h3 class="title">IIC</h3>
+                    <!-- <p>Institution’s Innovation Council (IIC)</p> -->
+                </div>
+                <div class="flip-card-back">
+                    <h3 class="title">IIC</h3>
+                    <p class="font-in">To conduct innovation and entrepreneurship activities prescribed by Central MIC, and organize hackathons, idea competitions, and mini-challenges with industry involvement.</p>
+                    <a href="#">View Statistics</a> <a href="#">Read more</a>
+                </div>
+            </div>
+        </div>
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <div class="image-container">
+                        <img src="assets/images/Cisco-logo (1).png" alt="CISCO">
+                    </div>
+                    <h3 class="title">CISCO</h3>
+                </div>
+                <div class="flip-card-back">
+                    <h3 class="title">CISCO</h3>
+                    <p class="font-in">CISCO Trainings @ Department of Computer Science & Engineering, MVSR Engineering College, Hyderabad, Telangana, India</p>
+                    <a href="#">View Statistics</a> <a href="#">Read more</a>
+                </div>
+            </div>
+        </div>
+    </section>
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="section-title-style2 black-title text-center">
+                    <span>Join with us</span>
+                    <h2>Our Events</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Event Cards -->
+            <div class="col-md-6">
+                <div class="media align-items-center mb-5">
+                    <div class="media-head primary-bg">
+                        <span><sub>MAR</sub>25</span>
+                        <p>2018</p>
+                    </div>
+                    <div class="media-body" style="color: black; font-weight: bold;">
+                        <h4><a href="#" style="color: black; font-weight: bold;">Affiliate Marketing</a></h4>
+                        <p style="font-weight: bold;"><i class="fa fa-clock-o"></i>27th to 29th December 2024</p>
+                        <p style="font-weight: bold;">
+                            &#10132; RASEFT-2024 <br>  
+                            &#10132; A Conference on Recent Advances In Sustainable Engineering and Future Technologies<br>  
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="media align-items-center mb-5">
+                    <div class="media-head primary-bg">
+                        <p>2018</p>
+                    </div>
+                    <div class="media-body" style="color: black; font-weight: bold;">
+                        <h4><a href="#" style="color: black; font-weight: bold;">Facebook Marketing</a></h4>
+                        <p style="font-weight: bold;"><i class="fa fa-clock-o"></i>20 JUNE ‘24 - 30 JUNE ’24</p>
+                        <p style="font-weight: bold;">
+                            &#10132; <i class="fa fa-clock-o"></i> FDP on “LEARNING PARADIGMS IN MACHINE LEARNING & DEEP LEARNING WITH PYTHON”<br>  
+                            &#10132; Organized by : Dept of CSE, MVSREC<br>  
+                            <!-- &#10132; In association with : Electronics & ICT Academy, NIT Warangal<br>   -->
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+<!-- events area end -->
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- testimonial area start -->
+
+    <div class="testimonial-area ptb--120">
+        <img class="tst-bg" src="assets/images/bg/tst-bg-shape.png" alt="image">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3 text-center">
+                    <div class="tst-carousel owl-carousel">
+                        <div class="testimonial-content pb--40">
+                            <div class="section-title sec-style-two">
+                                <span class="text-uppercase primary-color mb-0">Happy students</span>
+                                <h2>Testimonial</h2>
+                            </div>
+                            <h3>CSE Students Meghana Reddy & Kannareddy Sathwika reddy secure CISCO 14.95 Lakh Package with 60K Full-time Internship</h3>
+                            <h4>C . I . S . C . O</h4>
+                            <span>Internship</span>
+                        </div>   
+                        <div class="testimonial-content pb--40">
+                            <div class="section-title sec-style-two">
+                                <span class="text-uppercase primary-color mb-0">Happy students</span>
+                                <h2>Testimonial</h2>
+                            </div>
+                            <h3>‘‘Congratulations to Vishnu,Civil Engg. branch 2023 passout for being recommended by Services Selection Board,Allahabad to join Indian Army as an officer.
+                                Hearty Congratulations to Vishnu‘‘</h3>
+                            <h4>Indian Army</h4>
+                            <span> Services Selection Board</span>
+                        </div>  
+                        <div class="testimonial-content pb--40">
+                            <div class="section-title sec-style-two">
+                                <span class="text-uppercase primary-color mb-0">Happy students </span>
+                                <h2>Testimonial</h2>
+                            </div>
+                            <h3>MVSR was among the top 7 finalists in the IEEE R10 region (Asia Pacific) International Robotics Competition-2023 held at Chulalongkorn University in Bangkok on 9th and 10th of December 2023</h3>
+                            <h4>Chulalongkorn University</h4>
+                            <span>Bangkok</span>
+                        </div> 
+                    </div>
+                </div><!-- row -->
+            </div><!-- row -->
+        </div><!-- container -->
+    </div><!-- testimonial-area --> 
+
+
+
+
+
+
+
+
+
+<!-- header 2 in between page -->
+    <header id="header-container">
+        <div class="header-container">
+            <!-- Removed the logo section as per the request -->
+            <nav role="navigation" class="primary-navigation">
+                <div class="new-button-container">
+                    <div class="new-button-row">
+                        <button class="new-button">Professional Bodies</button>
+                        <button class="new-button">Transportation</button>
+                        <button class="new-button">Time Tables</button>
+                        <button class="new-button">Syllabus</button>
+                        <button class="new-button">Facilities</button>
+                        <button class="new-button">Media Room</button>
+                    </div>
+                    <div class="new-button-row">
+                        <button class="new-button">Alumni</button>
+                        <button class="new-button">Milestones</button>
+                        <button class="new-button">Swayam</button>
+                        <button class="new-button">Attendance</button>
+                        <button class="new-button">Pay Fees Online</button>
+                        <button class="new-button">Student Club</button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- blog area start -->
+    <div class="feature-blog  ptb--120">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 offset-md-1">
+                    <div class="section-title-style2 black-title title-tb text-center">
+                        <span>Training and Placements</span>
+                        <h2>Our Top recruiters</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container text-center">
+                <!-- Existing Reverse Triangle -->
+                <div class="row justify-content-center align-items-center position-relative">
+                    <div class="col-lg-4 col-md-4 col-6 recruiters-img position-relative">
+                        <img src="assets/images/companies/image5.png" alt="Mahindra" class="img-fluid logo-img hover-effect">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-6 recruiters-img position-relative">
+                        <img src="assets/images/companies/image1.png" alt="Hyundai" class="img-fluid logo-img hover-effect">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-6 recruiters-img position-relative">
+                        <img src="assets/images/companies/infosys.png" alt="Infosys" class="img-fluid logo-img hover-effect">
+                    </div>
+                </div>
+                <div class="row justify-content-center align-items-center mt-4 position-relative">
+                    <div class="col-12 position-absolute grey-line"></div>
+                    <div class="col-lg-3 col-md-3 col-6 offset-lg-1 offset-md-1 recruiters-img position-relative">
+                        <img src="assets/images/companies/image4.png" alt="Deloitte" class="img-fluid logo-img hover-effect">
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-6 offset-lg-1 offset-md-1 recruiters-img position-relative">
+                        <img src="assets/images/companies/image2.png" alt="IBM" class="img-fluid logo-img hover-effect">
+                    </div>
+                </div>
+                <div class="row justify-content-center align-items-center mt-4 position-relative">
+                    <div class="col-12 position-absolute grey-line"></div>
+                    <div class="col-lg-2 col-md-2 col-6 recruiters-img position-relative">
+                        <img src="assets/images/companies/image3.png" alt="AMD" class="img-fluid logo-img hover-effect">
+                    </div>
+                </div>
+            
+                <!-- Grey Line Between Sections -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <hr class="grey-line">
+                    </div>
+                </div>
+            
+                <div class="container text-center">
+                    <div class="container text-center mt-5">
+                        <!-- Heading -->
+                        <h2 class="mb-4">Recruiters</h2>
+                    
+                        <!-- Reverse Triangle -->
+                        <div class="row justify-content-center align-items-center position-relative">
+                            <!-- First Row: 6 Images -->
+                            <div class="col-lg-2 col-md-2 col-4 recruiters-img position-relative">
+                                <img src="assets/images/companies/image6.png" alt="Company 6" class="img-fluid logo-img hover-effect">
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-4 recruiters-img position-relative">
+                                <img src="assets/images/companies/image7.png" alt="Company 7" class="img-fluid logo-img hover-effect">
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-4 recruiters-img position-relative">
+                                <img src="assets/images/companies/image8.png" alt="Company 8" class="img-fluid logo-img hover-effect">
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-4 recruiters-img position-relative">
+                                <img src="assets/images/companies/image9.png" alt="Company 9" class="img-fluid logo-img hover-effect">
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-4 recruiters-img position-relative">
+                                <img src="assets/images/companies/image10.png" alt="Company 10" class="img-fluid logo-img hover-effect">
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-4 recruiters-img position-relative">
+                                <img src="assets/images/companies/image11.png" alt="Company 11" class="img-fluid logo-img hover-effect">
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                    
+                        <div class="row justify-content-center align-items-center position-relative">
+                            <!-- Second Row: 5 Images -->
+                            <div class="col-lg-2 col-md-2 col-4 recruiters-img position-relative">
+                                <img src="assets/images/companies/image12.png" alt="Company 12" class="img-fluid logo-img hover-effect">
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-4 recruiters-img position-relative">
+                                <img src="assets/images/companies/image13.png" alt="Company 13" class="img-fluid logo-img hover-effect">
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-4 recruiters-img position-relative">
+                                <img src="assets/images/companies/image14.png" alt="Company 14" class="img-fluid logo-img hover-effect">
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-4 recruiters-img position-relative">
+                                <img src="assets/images/companies/image15.png" alt="Company 15" class="img-fluid logo-img hover-effect">
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-4 recruiters-img position-relative">
+                                <img src="assets/images/companies/image16.png" alt="Company 16" class="img-fluid logo-img hover-effect">
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                    
+                        <div class="row justify-content-center align-items-center position-relative">
+                            <!-- Third Row: 4 Images -->
+                            <div class="col-lg-2 col-md-2 col-4 recruiters-img position-relative">
+                                <img src="assets/images/companies/image17.png" alt="Company 17" class="img-fluid logo-img hover-effect">
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-4 recruiters-img position-relative">
+                                <img src="assets/images/companies/image18.png" alt="Company 18" class="img-fluid logo-img hover-effect">
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-4 recruiters-img position-relative">
+                                <img src="assets/images/companies/image19.png" alt="Company 19" class="img-fluid logo-img hover-effect">
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-4 recruiters-img position-relative">
+                                <img src="assets/images/companies/image20.png" alt="Company 20" class="img-fluid logo-img hover-effect">
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                    
+                        <div class="row justify-content-center align-items-center position-relative">
+                            <!-- Fourth Row: 3 Images -->
+                            <div class="col-lg-2 col-md-2 col-3 recruiters-img position-relative">
+                                <img src="assets/images/companies/image21.png" alt="Company 21" class="img-fluid logo-img hover-effect">
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-3 recruiters-img position-relative">
+                                <img src="assets/images/companies/image22.png" alt="Company 22" class="img-fluid logo-img hover-effect">
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-3 recruiters-img position-relative">
+                                <img src="assets/images/companies/image23.png" alt="Company 23" class="img-fluid logo-img hover-effect">
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                    
+                        <div class="row justify-content-center align-items-center position-relative">
+                            <!-- Fifth Row: 2 Images -->
+                            <div class="col-lg-2 col-md-2 col-3 recruiters-img position-relative">
+                                <img src="assets/images/companies/image24.png" alt="Company 24" class="img-fluid logo-img hover-effect">
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-3 recruiters-img position-relative">
+                                <img src="assets/images/companies/image25.png" alt="Company 25" class="img-fluid logo-img hover-effect">
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                    
+                        <div class="row justify-content-center align-items-center position-relative">
+                            <!-- Sixth Row: 1 Image -->
+                            <div class="col-lg-2 col-md-2 col-3 recruiters-img position-relative">
+                                <img src="assets/images/companies/image26.png" alt="Company 26" class="img-fluid logo-img hover-effect">
+                            </div>
+                        </div>
+                    </div>
+                    
+                
+            
+            
+            <!-- card -->    
+                </div><!-- blog-carousel -->
+            </div><!-- blog-carousel -->
+
+        </div>
+    </div> <!-- blog area end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <!-- footer area start -->
+   <footer>  
+    <div class="footer-top has-color pt--120 pb--30">  
+        <div class="container">  
+            <div class="row">  
+                <!-- Administration Section -->  
+                <div class="col-md-3">  
+                    <h4 class="fwidget-title mb-5 pb-3 primary-color">Administration</h4>  
+                    <div class="address">  
+                        <p>  
+                            Our Entrepreneurs<br>  
+                            Campus Placements<br>  
+                            Alumni Citation<br>  
+                            Alumni Registration<br>  
+                            Hostel Facility<br>  
+                            Maintenance<br>  
+                            Admin. Committees  
+                        </p>  
+                    </div>  
+                </div>
+
+                <!-- Academics Section -->  
+                <div class="col-md-3">  
+                    <h4 class="fwidget-title mb-5 pb-3 primary-color">Academics</h4>  
+                    <ul>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>NAD</a></li>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Industry Interaction Cell</a></li>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Grievance Redressal</a></li>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Facility</a></li>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>NPTEL Local Chapter</a></li>  
+                    </ul>  
+                </div>
+
+                <!-- Others Section -->  
+                <div class="col-md-3">  
+                    <h4 class="fwidget-title mb-5 pb-3 primary-color">Others</h4>  
+                    <ul>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Recruitment Procedure</a></li>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Staff Rules & Regulations</a></li>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Academic & Admin Duties</a></li>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>AICTE</a></li>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>B.E Rules & Regulations</a></li>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Administration Sections</a></li>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>IIT-Spoken Tutorial MoU</a></li>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Milestones</a></li>  
+                    </ul>  
+                </div>
+
+                <!-- Forms/Documents Section -->  
+                <div class="col-md-3">  
+                    <h4 class="fwidget-title mb-5 pb-3 primary-color">Forms / Documents</h4>  
+                    <ul>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>AICTE Model Curriculum</a></li>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>NBA</a></li>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>NIRF</a></li>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>ISO</a></li>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Anti Ragging Committee</a></li>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Stock Register</a></li>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Faculty List</a></li>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Student List</a></li>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Grievance Redressal</a></li>  
+                        <li><a href="#"><i class="fa fa-angle-right"></i>Formats (for office use)</a></li>  
+                    </ul>  
+                </div>
+            </div>  
+
+            <!-- Two Map Sections Below Text -->  
+            <div class="row">  
+                <!-- Left Map Section -->  
+                <div class="col-md-6" style="margin-top: 20px;">  
+                    <h4 class="fwidget-title mb-5 pb-3 primary-color">Location</h4>  
+                    <div style="width: 100%; height: 300px; overflow: hidden;">  
+                        <iframe   
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31112.253382291303!2d78.537842!3d17.2817706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcba3b7138f229b%3A0x58c171967385349e!2sMaturi%20Venkata%20Subba%20Rao%20Engineering%20College!5e0!3m2!1sen!2sin!4v1677281958965!5m2!1sen!2sin"   
+                            style="width: 100%; height: 100%; border: 0;"   
+                            allowfullscreen=""   
+                            loading="lazy">  
+                        </iframe>  
+                    </div>  
+                </div>  
+
+                <!-- Right Map Section -->  
+                <div class="col-md-6" style="margin-top: 20px;">  
+                    <h4 class="fwidget-title mb-5 pb-3 primary-color">Additional Location</h4>  
+                    <div style="width: 100%; height: 300px; overflow: hidden;">  
+                      <iframe 
+                        id="iframe1" src="https://www.google.com/maps/embed?pb=!4v1524156471760!6m8!1m7!1sCAoSLEFGMVFpcE9Yal9faWI0ZHh3NzJkdUlGWlMwS2o4aFd0NkN1aEQ1YWNnbzlT!2m2!1d17.28176960191925!2d78.53775881182969!3f91.42068670011452!4f6.377555837977965!5f0.7820865974627469"
+                        style="width: 100%; height: 100%; border: 0;"   
+                        allowfullscreen=""   
+                        loading="lazy"> 
+                        </iframe>  
+                    </div>  
+                </div>  
+            </div>  
+
+            <!-- Footer Bottom -->  
+            <div class="footer-bottom" style="margin-top: 20px; text-align: center;">  
+                <p>  
+                    Copyright © 2025 - All Rights Reserved. Made by WEBIOS  
+                </p>  
+            </div>  
+        </div>  
+    </div>  
+</footer>
+
+
+<!-- footer area end -->
+
+
+
+ 
+
+
+
+
+
+
+
+    
+    <!-- jquery latest version -->
+    <script src="assets/js/vendor/jquery-2.2.4.min.js"></script>
+    <!-- bootstrap 4 js -->
+    <script src="assets/js/bootstrap.min.js"></script>
+    <!-- others plugins -->
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/jquery.slicknav.min.js"></script>
+    <script src="assets/js/plugins.js"></script>
+    <script src="assets/js/scripts.js"></script>
+</body>
+
+</html>
